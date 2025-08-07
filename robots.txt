@@ -1,0 +1,10 @@
+# Robots.txt for Rum River Barn & Vineyard
+# https://rumrivermn.com/
+
+User-agent: *
+Allow: /
+Disallow: /wp-content/plugins/
+Disallow: /cms_websites/tools/
+
+# Sitemap location
+Sitemap: https://rumrivermn.com/sitemap.xml
