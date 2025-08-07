@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Form - Rum River Barn & Vineyard</title>
+    <style>
+        body {
+            font-family: "Source Sans Pro", sans-serif;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+        form {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input, textarea, select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            box-sizing: border-box;
+        }
+        button {
+            background: #333;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #555;
+        }
+        .required {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Contact Us</h1>
+    <form name="contact" method="POST" data-netlify="true" action="/contact-thank-you">
+        <label for="name">Your Name <span class="required">*</span></label>
+        <input type="text" name="name" id="name" required>
+        
+        <label for="email">Email Address <span class="required">*</span></label>
+        <input type="email" name="email" id="email" required>
+        
+        <label for="phone">Phone Number</label>
+        <input type="tel" name="phone" id="phone">
+        
+        <label for="event-date">Event Date</label>
+        <input type="date" name="event-date" id="event-date">
+        
+        <label for="event-type">Event Type</label>
+        <select name="event-type" id="event-type">
+            <option value="">Select an event type</option>
+            <option value="wedding">Wedding</option>
+            <option value="birthday">Birthday Party</option>
+            <option value="corporate">Corporate Event</option>
+            <option value="holiday">Holiday Party</option>
+            <option value="engagement">Engagement Party</option>
+            <option value="graduation">Graduation Party</option>
+            <option value="other">Other</option>
+        </select>
+        
+        <label for="guest-count">Estimated Guest Count</label>
+        <input type="number" name="guest-count" id="guest-count">
+        
+        <label for="message">Message <span class="required">*</span></label>
+        <textarea name="message" id="message" rows="5" required></textarea>
+        
+        <button type="submit">Send Message</button>
+    </form>
+</body>
+</html>
