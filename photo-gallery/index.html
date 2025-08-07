@@ -67,6 +67,23 @@
 <meta name="description" itemprop="description" content="" />
 <link rel="canonical" href="../photo-gallery.html" />
 <link rel="stylesheet" id="custom-css-css" href="https://rumrivermn.com/cms_websites/cms_custom_css.php?ver=248_11" type="text/css" media="all"/>
+<style>
+/* Fix image sizing for photo gallery */
+#container .list_block.type_article.small .the_list_item_image {
+    overflow: hidden;
+    position: relative;
+    padding-bottom: 75%; /* 4:3 aspect ratio */
+    height: 0;
+}
+#container .list_block.type_article.small .the_list_item_image img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+</style>
 <div id="fb-root"></div>
 <script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
