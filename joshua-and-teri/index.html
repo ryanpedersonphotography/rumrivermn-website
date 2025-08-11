@@ -88,32 +88,29 @@
     clear: both;
 }
 
-/* Gallery section - use flexbox for reliable grid */
+/* Masonry layout for galleries */
 .list_block.type_article {
-    display: flex !important;
-    flex-wrap: wrap !important;
-    justify-content: flex-start !important;
-    align-items: stretch !important; /* Make all items same height */
+    column-count: 3;
+    column-gap: 15px;
     padding: 0;
     margin: 0 auto;
     max-width: 100%;
 }
 
-/* Gallery items styling */
+/* Gallery items styling - masonry */
 .list_block.type_article .the_list_item {
-    display: block !important;
-    margin: 0.5% !important;
+    display: inline-block !important;
+    width: 100% !important;
+    margin: 0 0 15px 0 !important;
+    break-inside: avoid;
+    page-break-inside: avoid;
     overflow: hidden;
-    flex: 0 0 32.33% !important;
-    max-width: 32.33% !important;
 }
 
-/* Override any inherited styles */
+/* Reset flex overrides */
 .list_block.type_article.column_amt_3 .the_list_item {
-    width: auto !important;
-    flex: 0 0 32.33% !important;
-    max-width: 32.33% !important;
-    margin: 0.5% !important;
+    flex: none !important;
+    max-width: 100% !important;
 }
 
 /* Hero image (full width) */
@@ -135,20 +132,22 @@
     height: 0;
 }
 
-/* Gallery landscape images (4:3) */
-.list_block.type_article.landscape_4_3 .the_list_item_image {
-    padding-bottom: 75%;
-    height: 0;
+/* Masonry layout - let images be natural height */
+.list_block.type_article .the_list_item_image {
+    padding-bottom: 0 !important;
+    height: auto !important;
 }
 
-/* Gallery portrait images (3:4) */
-.list_block.type_article.portrait_3_4 .the_list_item_image {
-    padding-bottom: 133.33%;
-    height: 0;
+/* Images in masonry should maintain aspect ratio */
+.list_block.type_article .the_list_item_image img {
+    position: relative !important;
+    width: 100% !important;
+    height: auto !important;
+    display: block !important;
 }
 
-/* Position images absolutely within containers */
-.list_block .the_list_item_image img {
+/* Hero image keeps absolute positioning */
+.list_block.type_photo_grid .the_list_item_image img {
     position: absolute !important;
     top: 0;
     left: 0;
@@ -157,14 +156,13 @@
     object-fit: cover;
 }
 
-/* Ensure lightbox links fill container */
+/* Lightbox links for masonry */
 .list_block.type_article .the_list_item_image a {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: block;
+    position: relative !important;
+    display: block !important;
+    width: 100% !important;
+    height: auto !important;
+    cursor: pointer;
 }
 
 /* Gallery wrapper styling */
@@ -183,19 +181,44 @@
 
 /* Flexbox handles spacing, no need for letter-spacing hacks */
 
-/* Responsive adjustments */
+/* Responsive masonry columns */
 @media (max-width: 768px) {
-    .list_block.type_article.column_amt_3 .the_list_item {
-        width: 48%;
-        margin: 1%;
+    .list_block.type_article {
+        column-count: 2;
     }
 }
 
 @media (max-width: 480px) {
-    .list_block.type_article.column_amt_3 .the_list_item {
-        width: 100%;
-        margin: 0 0 10px 0;
+    .list_block.type_article {
+        column-count: 1;
     }
+}
+
+/* Simple lightbox styles */
+.lightbox-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.9);
+    z-index: 9999;
+    cursor: pointer;
+}
+
+.lightbox-overlay img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 90%;
+    max-height: 90%;
+    box-shadow: 0 0 50px rgba(0,0,0,0.5);
+}
+
+.lightbox-overlay.active {
+    display: block;
 }
 
 /* Fix lazy load placeholder opacity */
@@ -211,7 +234,7 @@
 }
 </style>
 <script>
-// Immediately load all lazy images
+// Immediately load all lazy images and setup lightbox
 document.addEventListener('DOMContentLoaded', function() {
     // Find all lazy load images
     var lazyImages = document.querySelectorAll('img.beacon-lazy-load');
@@ -240,6 +263,30 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             };
         }
+    });
+    
+    // Create lightbox overlay
+    var lightbox = document.createElement('div');
+    lightbox.className = 'lightbox-overlay';
+    lightbox.innerHTML = '<img src="" alt="Gallery image">';
+    document.body.appendChild(lightbox);
+    
+    // Add click handlers to gallery images
+    var galleryLinks = document.querySelectorAll('.list_block.type_article .the_list_item_image a');
+    galleryLinks.forEach(function(link) {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            var imgSrc = this.getAttribute('href');
+            if (imgSrc) {
+                lightbox.querySelector('img').src = imgSrc;
+                lightbox.classList.add('active');
+            }
+        });
+    });
+    
+    // Close lightbox on click
+    lightbox.addEventListener('click', function() {
+        this.classList.remove('active');
     });
     
     // Also trigger any existing lazy load mechanism
