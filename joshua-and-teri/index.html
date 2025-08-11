@@ -86,8 +86,15 @@
 .list_block { 
     overflow: hidden;
     clear: both;
-    text-align: left;
+}
+
+/* Gallery section specific */
+.list_block.type_article {
     font-size: 0; /* Remove whitespace between inline-block elements */
+    text-align: center; /* Center the grid */
+    padding: 0;
+    margin: 0 auto;
+    max-width: 100%;
 }
 
 /* Gallery items styling */
@@ -99,10 +106,10 @@
     font-size: 16px; /* Reset font size */
 }
 
-/* 3 column layout for galleries */
+/* 3 column layout for galleries - more precise calculation */
 .list_block.type_article.column_amt_3 .the_list_item {
-    width: calc(33.333% - 1%);
-    margin: 0.5%;
+    width: 31.33%;
+    margin: 1%;
 }
 
 /* Hero image (full width) */
