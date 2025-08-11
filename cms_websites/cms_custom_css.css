@@ -594,3 +594,116 @@ textarea::placeholder {
     padding: 1rem !important;
     border: 1px solid #c3e6cb !important;
 }
+
+/* Homepage form specific formatting fixes */
+.gform_wrapper.gravity-theme,
+.gform {
+    max-width: 100%;
+    margin: 0;
+}
+
+.gform .gfield {
+    margin-bottom: 1.5em;
+    padding: 0;
+    clear: both;
+}
+
+.gform .gfield_label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 0.5em;
+    color: #333 !important;
+    font-size: 1em;
+}
+
+.gform .ginput_complex {
+    display: flex;
+    gap: 1em;
+    flex-wrap: wrap;
+}
+
+.gform .ginput_left,
+.gform .ginput_right {
+    flex: 1;
+    min-width: 200px;
+}
+
+.gform .ginput_left label,
+.gform .ginput_right label {
+    display: block;
+    font-size: 0.85em;
+    margin-top: 0.25em;
+    color: #666 !important;
+    font-weight: normal !important;
+}
+
+.gform input[type="text"],
+.gform input[type="email"],
+.gform input[type="tel"],
+.gform textarea {
+    width: 100%;
+    padding: 0.5em;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 1em;
+    color: #333 !important;
+    background: #fff !important;
+    box-sizing: border-box;
+}
+
+.gform textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.gform .gfield_description {
+    font-size: 0.85em;
+    margin-top: 0.25em;
+    color: #666 !important;
+}
+
+.gform .gfield_required {
+    color: #d00 !important;
+}
+
+.gform_footer {
+    margin-top: 1.5em;
+    clear: both;
+}
+
+.gform_button,
+.gform input[type="submit"] {
+    background-color: #b4cc7a !important;
+    color: #fff !important;
+    padding: 0.75em 2em;
+    border: none !important;
+    border-radius: 3px;
+    font-size: 1.2em !important;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-transform: uppercase;
+    box-shadow: none !important;
+}
+
+.gform_button:hover,
+.gform input[type="submit"]:hover {
+    background-color: #8a7e8a !important;
+}
+
+/* Fix input alignment in complex fields */
+.gform .ginput_complex input {
+    margin-bottom: 0.25em;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .gform .ginput_complex {
+        flex-direction: column;
+    }
+    
+    .gform .ginput_left,
+    .gform .ginput_right {
+        width: 100%;
+        min-width: auto;
+    }
+}

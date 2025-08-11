@@ -1,0 +1,17 @@
+[build]
+  publish = "."
+
+[build.processing]
+  skip_processing = false
+
+[build.processing.html]
+  pretty_urls = false
+
+[build.processing.forms]
+  enable = true
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
