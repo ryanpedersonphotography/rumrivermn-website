@@ -186,6 +186,31 @@
     clear: both;
 }
 </style>
+<script>
+// Immediately load all lazy images
+document.addEventListener('DOMContentLoaded', function() {
+    // Find all lazy load images
+    var lazyImages = document.querySelectorAll('img.beacon-lazy-load');
+    
+    lazyImages.forEach(function(img) {
+        // Get the actual image source
+        var actualSrc = img.getAttribute('data-lazy-load-img-src');
+        if (actualSrc) {
+            // Set the actual source
+            img.src = actualSrc;
+            // Remove lazy load class
+            img.classList.remove('beacon-lazy-load');
+            // Remove the data attribute
+            img.removeAttribute('data-lazy-load-img-src');
+        }
+    });
+    
+    // Also trigger any existing lazy load mechanism
+    if (typeof jQuery !== 'undefined' && jQuery.fn.trigger) {
+        jQuery(window).trigger('scroll');
+    }
+});
+</script>
 <div id="fb-root"></div>
 <script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
