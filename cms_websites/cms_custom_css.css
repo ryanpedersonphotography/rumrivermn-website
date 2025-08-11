@@ -16,7 +16,7 @@ h3.gform_title {
 }
 
 .gfield_description, #wrapper .large .the_list_item .gform_wrapper .ginput_complex label {
-  color: #fff !important;
+  color: #333 !important;
 }
 
 .ginput_container.ayah, span.num1 {
@@ -399,7 +399,25 @@ h3.gform_title {
   
   #container .the_list_item .gform_wrapper .top_label .gfield_label,
   #container .small .the_list_item .gform_wrapper .ginput_complex label{
-    color: #fff !important;
+    color: #333 !important;
+  }
+  
+  /* Fix form text visibility on light backgrounds */
+  .gform_wrapper label,
+  .gform_wrapper .gfield_label,
+  .gform_wrapper .ginput_complex label,
+  .gform_wrapper .gfield_description {
+    color: #333 !important;
+  }
+  
+  /* Ensure input text is visible */
+  .gform_wrapper input[type="text"],
+  .gform_wrapper input[type="email"],
+  .gform_wrapper input[type="tel"],
+  .gform_wrapper textarea,
+  .gform_wrapper select {
+    color: #333 !important;
+    background-color: #fff !important;
   }
 
   @media (max-width: 1500px){
