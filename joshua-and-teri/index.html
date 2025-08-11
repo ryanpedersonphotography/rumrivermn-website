@@ -88,10 +88,12 @@
     clear: both;
 }
 
-/* Gallery section specific */
+/* Gallery section - use flexbox for reliable grid */
 .list_block.type_article {
-    font-size: 0; /* Remove whitespace between inline-block elements */
-    text-align: center; /* Center the grid */
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: flex-start !important;
+    align-items: flex-start !important;
     padding: 0;
     margin: 0 auto;
     max-width: 100%;
@@ -99,17 +101,19 @@
 
 /* Gallery items styling */
 .list_block.type_article .the_list_item {
-    display: inline-block;
-    vertical-align: top;
-    margin: 0.5%;
+    display: block !important;
+    margin: 0.5% !important;
     overflow: hidden;
-    font-size: 16px; /* Reset font size */
+    flex: 0 0 32.33% !important;
+    max-width: 32.33% !important;
 }
 
-/* 3 column layout for galleries - more precise calculation */
+/* Override any inherited styles */
 .list_block.type_article.column_amt_3 .the_list_item {
-    width: 31.33%;
-    margin: 1%;
+    width: auto !important;
+    flex: 0 0 32.33% !important;
+    max-width: 32.33% !important;
+    margin: 0.5% !important;
 }
 
 /* Hero image (full width) */
@@ -175,14 +179,7 @@
     box-sizing: border-box;
 }
 
-/* Force inline-block display for better cross-browser support */
-.list_block.type_article {
-    letter-spacing: -0.31em; /* Remove whitespace between inline elements */
-}
-
-.list_block.type_article .the_list_item {
-    letter-spacing: normal; /* Reset letter spacing inside items */
-}
+/* Flexbox handles spacing, no need for letter-spacing hacks */
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
