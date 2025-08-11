@@ -1,69 +1,111 @@
-/* Gallery Image Sizing Fix */
-.list_block .the_list_item_image {
-    position: relative;
-    overflow: hidden;
-}
+/* Gallery Image Sizing Fix - Updated */
 
-.list_block .the_list_item_image img {
-    width: 100% !important;
-    height: auto !important;
-    display: block;
+/* Reset any existing image styles */
+.list_block img {
     max-width: 100% !important;
+    height: auto !important;
 }
 
-/* Maintain aspect ratios for different gallery layouts */
-.list_block.landscape_4_3 .the_list_item_image {
-    padding-bottom: 75%; /* 4:3 aspect ratio */
-    position: relative;
-    overflow: hidden;
+/* Container setup */
+.list_block .the_list_item {
+    display: inline-block !important;
+    vertical-align: top !important;
+    margin: 0.5% !important;
+    overflow: hidden !important;
 }
 
-.list_block.portrait_3_4 .the_list_item_image {
-    padding-bottom: 133.33%; /* 3:4 aspect ratio */
-    position: relative;
-    overflow: hidden;
+/* 3 column layout */
+.list_block.column_amt_3 .the_list_item {
+    width: 32% !important;
+}
+
+/* Image container */
+.list_block .the_list_item_image {
+    position: relative !important;
+    overflow: hidden !important;
+    width: 100% !important;
+    background: #f0f0f0;
+}
+
+/* Set aspect ratios using padding-bottom trick */
+.list_block.landscape_4_3 .the_list_item_image,
+.list_block.landscape_4_3 .the_list_wrap .the_list_item_image {
+    padding-bottom: 75% !important; /* 4:3 */
+    height: 0 !important;
+}
+
+.list_block.portrait_3_4 .the_list_item_image,
+.list_block.portrait_3_4 .the_list_wrap .the_list_item_image {
+    padding-bottom: 133.33% !important; /* 3:4 */
+    height: 0 !important;
 }
 
 .list_block.img-widescreen_16_9 .the_list_item_image,
 .list_block.widescreen_16_9 .the_list_item_image {
-    padding-bottom: 56.25%; /* 16:9 aspect ratio */
-    position: relative;
-    overflow: hidden;
+    padding-bottom: 56.25% !important; /* 16:9 */
+    height: 0 !important;
 }
 
-.list_block .the_list_item_image img.item_image {
-    position: absolute;
-    top: 0;
-    left: 0;
+/* Full width hero image */
+.list_block.column_amt_1 .the_list_item {
+    width: 100% !important;
+    margin: 0 !important;
+}
+
+/* Position images absolutely within containers */
+.list_block .the_list_item_image img,
+.list_block .the_list_item_image a img {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
     width: 100% !important;
     height: 100% !important;
-    object-fit: cover;
+    object-fit: cover !important;
 }
 
-/* Fix for lazy-loaded images */
-.list_block .the_list_item_image img.beacon-lazy-load {
+/* Ensure lightbox links don't break layout */
+.list_block .the_list_item_image a {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
     width: 100% !important;
     height: 100% !important;
-    object-fit: cover;
+    display: block !important;
 }
 
-/* Ensure grid items maintain proper spacing */
-.list_block.column_amt_3 .the_list_item {
-    width: 31.33%;
-    margin: 1%;
-    display: inline-block;
-    vertical-align: top;
+/* Clear floats */
+.list_block:after {
+    content: "";
+    display: table;
+    clear: both;
 }
 
+/* Responsive adjustments */
 @media (max-width: 768px) {
     .list_block.column_amt_3 .the_list_item {
-        width: 48%;
+        width: 48% !important;
+        margin: 1% !important;
     }
 }
 
 @media (max-width: 480px) {
     .list_block.column_amt_3 .the_list_item {
-        width: 100%;
-        margin: 0 0 10px 0;
+        width: 100% !important;
+        margin: 0 0 10px 0 !important;
     }
+}
+
+/* Override any conflicting styles from theme */
+.list_block .the_list_wrap {
+    height: auto !important;
+}
+
+/* Ensure images load properly */
+.list_block img.beacon-lazy-load[src*="lazy-load-placeholder"] {
+    opacity: 0.3;
+}
+
+.list_block img.beacon-lazy-load:not([src*="lazy-load-placeholder"]) {
+    opacity: 1;
+    transition: opacity 0.3s;
 }
