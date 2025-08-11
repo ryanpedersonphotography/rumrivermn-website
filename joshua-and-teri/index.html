@@ -195,19 +195,33 @@ document.addEventListener('DOMContentLoaded', function() {
     lazyImages.forEach(function(img) {
         // Get the actual image source
         var actualSrc = img.getAttribute('data-lazy-load-img-src');
-        if (actualSrc) {
+        if (actualSrc && actualSrc !== '') {
             // Set the actual source
             img.src = actualSrc;
             // Remove lazy load class
             img.classList.remove('beacon-lazy-load');
+            // Clear data-src if it exists
+            if (img.hasAttribute('data-src')) {
+                img.removeAttribute('data-src');
+            }
             // Remove the data attribute
             img.removeAttribute('data-lazy-load-img-src');
+            
+            // Add error handler in case image fails to load
+            img.onerror = function() {
+                console.error('Failed to load image:', actualSrc);
+                // Try without the ../
+                if (actualSrc.startsWith('../')) {
+                    img.src = actualSrc.substring(3);
+                }
+            };
         }
     });
     
     // Also trigger any existing lazy load mechanism
     if (typeof jQuery !== 'undefined' && jQuery.fn.trigger) {
         jQuery(window).trigger('scroll');
+        jQuery(window).trigger('resize');
     }
 });
 </script>
@@ -388,7 +402,6 @@ _gaq.push(['_trackPageview']);
 <!-- photo_grid new RENDER -->
  <div id='section_1' class='list_block type_photo_grid pg1 column_amt_1 img-widescreen_16_9 large not_well '>
 <div class='item_1 the_list_item center not_hero yes_image no_heads no_desc ' lang='en'>
-<a class='block_link'  target='_self' class='the_item_link' data-title=''></a>
 <div class='the_list_item_image'>
 <img alt='' data-src='' data-lazy-load-img-src="../files/2016/01/Kliewer-6226667-1-Best-100-88.jpg" border='0' class='item_image beacon-lazy-load' src='../cms_websites/img/lazy-load-placeholder.png'>
 </div></div></div>
