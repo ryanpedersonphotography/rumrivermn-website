@@ -10,7 +10,7 @@ body:not(.isMobile) #wrapper .page_title, #the_header, #the_footer, #container .
 }
 
 h3.gform_title {
-    color: #fff !important;
+    color: #333 !important;
     font-weight: bold !important;
     font-size: 2rem !important;
 }
@@ -197,7 +197,7 @@ h3.gform_title {
   }
   
   .tsidesign_feature h3.the_list_item_headline.hds_color a{
-  color:white !important;
+  color: #333 !important;
   
   }
 
@@ -521,3 +521,76 @@ h3.gform_title {
 
 /*------------------------ BANNER -----------------------------*/
 #header-cta{float:left!important;width:100%!important;text-align:center!important;padding-top:.5rem!important;padding-bottom:.5rem!important;font-size:1.8rem!important;background:#212121 !important;background-size:400% 400%;-webkit-animation:Gradient 10s ease infinite;-moz-animation:Gradient 10s ease infinite;animation:Gradient 10s ease infinite;color:#fff!important;text-transform:unset!important;text-shadow:2px 2px 1px rgba(0,0,0,.5)!important;font-weight:bold!important}@-webkit-keyframes Gradient{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}@-moz-keyframes Gradient{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}@keyframes Gradient{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}#header-cta a{color:#fff}
+
+/*------------------------ COMPREHENSIVE TEXT VISIBILITY FIXES -----------------------------*/
+/* Fix all form elements text visibility */
+.gform_wrapper,
+.gform_wrapper *,
+.gfield,
+.gfield * {
+    color: #333 !important;
+}
+
+/* Exception: Keep white text on colored backgrounds */
+.the_list_item_action a,
+#gform_submit_button_46275,
+#gform_submit_button_2,
+.gform_button,
+input[type="submit"] {
+    color: #fff !important;
+}
+
+/* Fix feature section headline links that should be dark */
+.tsidesign_feature .the_list_item_headline a,
+.tsidesign_content .the_list_item_headline a {
+    color: #333 !important;
+}
+
+/* Ensure all form labels are visible */
+label,
+.gfield_label,
+.ginput_complex label,
+.field_sublabel,
+.gfield_description,
+.gfield_required {
+    color: #333 !important;
+}
+
+/* Fix placeholder text */
+input::placeholder,
+textarea::placeholder {
+    color: #999 !important;
+    opacity: 1 !important;
+}
+
+/* Fix any math problems or captcha text */
+.ayah,
+.ayah *,
+[id*="ayah"],
+[class*="ayah"],
+.security-check,
+.captcha,
+.math-problem {
+    color: #333 !important;
+}
+
+/* Ensure modal text is visible when on light backgrounds */
+.modal_wrap:not(.type_modal) .modal_content {
+    color: #333 !important;
+}
+
+/* Fix any validation messages */
+.validation_message,
+.gfield_error,
+.validation_error {
+    color: #d00 !important;
+}
+
+/* Fix success messages */
+.gform_confirmation_message,
+.success-message {
+    color: #333 !important;
+    background: #d4edda !important;
+    padding: 1rem !important;
+    border: 1px solid #c3e6cb !important;
+}
