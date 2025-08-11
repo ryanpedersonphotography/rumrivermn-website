@@ -33,10 +33,10 @@
     <!-- <script type="text/javascript" src="../wp-content/themes/beacon-easton/js/nwmatcher.js"></script> -->
     <!-- <script type="text/javascript" src="../wp-content/themes/beacon-easton/js/modernizr-custom-11917.js"></script> -->
 
-    <script type="text/javascript" src="../cms_websites/js/dist/shared/external/scripts.min.js"></script>
+    <script type="text/javascript" src="/cms_websites/js/dist/shared/external/scripts.min.js"></script>
 
 <!-- External tracking removed - not available locally -->
-<link rel="shortcut icon" sizes="16x16 32x32 64x64" href="../files/2021/03/wedding-rings.png%3Fw=196&amp;h=196&amp;zc=0">
+<link rel="shortcut icon" sizes="16x16 32x32 64x64" href="/files/2021/03/wedding-rings.png%3Fw=196&amp;h=196&amp;zc=0">
 <meta property="og:image" content="../files/2014/05/6lv2R9KqOr5T8Fpw-9U8rYtPJA1X2DNeIpVVJbT7NtE.jpg"/>
 <meta property="og:image" content="../files/2014/05/dsRoPx0RtUzzhx0F9RWKe4XBoz04Xm1E2e0aj2j3zPs.jpg"/>
 <meta property="og:image" content="../files/2014/05/sVXDyxfSxt68XOQy6PYCGz3GaAE5a7AD5dmaR1yefLA.jpg"/>
@@ -181,6 +181,221 @@ _gaq.push(['_trackPageview']);
             }, false);
         </script>
 
+<style>
+/* Gallery grid fix */
+.list_block { 
+    overflow: hidden;
+    clear: both;
+}
+
+/* Masonry layout for galleries */
+.list_block.type_article {
+    column-count: 3;
+    column-gap: 15px;
+    padding: 0;
+    margin: 0 auto;
+    max-width: 100%;
+}
+
+/* Gallery items styling - masonry */
+.list_block.type_article .the_list_item {
+    display: inline-block !important;
+    width: 100% !important;
+    margin: 0 0 15px 0 !important;
+    break-inside: avoid;
+    page-break-inside: avoid;
+    overflow: hidden;
+}
+
+/* Reset flex overrides */
+.list_block.type_article.column_amt_3 .the_list_item {
+    flex: none !important;
+    max-width: 100% !important;
+}
+
+/* Hero image (full width) */
+.list_block.type_photo_grid.column_amt_1 .the_list_item {
+    width: 100%;
+    margin: 0;
+}
+
+/* Image container with aspect ratio */
+.list_block .the_list_item_image {
+    position: relative;
+    overflow: hidden;
+    background: #f5f5f5;
+}
+
+/* Hero image aspect ratio (16:9) */
+.list_block.type_photo_grid.img-widescreen_16_9 .the_list_item_image {
+    padding-bottom: 56.25%;
+    height: 0;
+}
+
+/* Masonry layout - let images be natural height */
+.list_block.type_article .the_list_item_image {
+    padding-bottom: 0 !important;
+    height: auto !important;
+}
+
+/* Images in masonry should maintain aspect ratio */
+.list_block.type_article .the_list_item_image img {
+    position: relative !important;
+    width: 100% !important;
+    height: auto !important;
+    display: block !important;
+}
+
+/* Hero image keeps absolute positioning */
+.list_block.type_photo_grid .the_list_item_image img {
+    position: absolute !important;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Lightbox links for masonry */
+.list_block.type_article .the_list_item_image a {
+    position: relative !important;
+    display: block !important;
+    width: 100% !important;
+    height: auto !important;
+    cursor: pointer;
+}
+
+/* Gallery wrapper styling */
+.list_block.type_article .the_list_wrap {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Ensure proper box-sizing */
+.list_block *, .list_block *:before, .list_block *:after {
+    box-sizing: border-box;
+}
+
+/* Flexbox handles spacing, no need for letter-spacing hacks */
+
+/* Responsive masonry columns */
+@media (max-width: 768px) {
+    .list_block.type_article {
+        column-count: 2;
+    }
+}
+
+@media (max-width: 480px) {
+    .list_block.type_article {
+        column-count: 1;
+    }
+}
+
+/* Simple lightbox styles */
+.lightbox-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.9);
+    z-index: 9999;
+    cursor: pointer;
+}
+
+.lightbox-overlay img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 90%;
+    max-height: 90%;
+    box-shadow: 0 0 50px rgba(0,0,0,0.5);
+}
+
+.lightbox-overlay.active {
+    display: block;
+}
+
+/* Fix lazy load placeholder opacity */
+.list_block img.beacon-lazy-load[src*="lazy-load-placeholder"] {
+    opacity: 0.1;
+}
+
+/* Clear floats */
+.list_block:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+</style>
+<script>
+// Immediately load all lazy images and setup lightbox
+document.addEventListener('DOMContentLoaded', function() {
+    // Find all lazy load images
+    var lazyImages = document.querySelectorAll('img.beacon-lazy-load');
+    
+    lazyImages.forEach(function(img) {
+        // Get the actual image source
+        var actualSrc = img.getAttribute('data-lazy-load-img-src');
+        if (actualSrc && actualSrc !== '') {
+            // Set the actual source
+            img.src = actualSrc;
+            // Remove lazy load class
+            img.classList.remove('beacon-lazy-load');
+            // Clear data-src if it exists
+            if (img.hasAttribute('data-src')) {
+                img.removeAttribute('data-src');
+            }
+            // Remove the data attribute
+            img.removeAttribute('data-lazy-load-img-src');
+            
+            // Add error handler in case image fails to load
+            img.onerror = function() {
+                console.error('Failed to load image:', actualSrc);
+                // Try without the ../
+                if (actualSrc.startsWith('../')) {
+                    img.src = actualSrc.substring(3);
+                }
+            };
+        }
+    });
+    
+    // Create lightbox overlay
+    var lightbox = document.createElement('div');
+    lightbox.className = 'lightbox-overlay';
+    lightbox.innerHTML = '<img src="" alt="Gallery image">';
+    document.body.appendChild(lightbox);
+    
+    // Add click handlers to gallery images
+    var galleryLinks = document.querySelectorAll('.list_block.type_article .the_list_item_image a');
+    galleryLinks.forEach(function(link) {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            var imgSrc = this.getAttribute('href');
+            if (imgSrc) {
+                lightbox.querySelector('img').src = imgSrc;
+                lightbox.classList.add('active');
+            }
+        });
+    });
+    
+    // Close lightbox on click
+    lightbox.addEventListener('click', function() {
+        this.classList.remove('active');
+    });
+    
+    // Also trigger any existing lazy load mechanism
+    if (typeof jQuery !== 'undefined' && jQuery.fn.trigger) {
+        jQuery(window).trigger('scroll');
+        jQuery(window).trigger('resize');
+    }
+});
+</script>
 </head>
 <body class=" page page-id-2508 page-template-default ve-iframe beacon r1 unknown">
 
@@ -214,7 +429,7 @@ _gaq.push(['_trackPageview']);
             
 <div id='_the_logo' class='_is_plugin header-logo' slug='_the_logo' data-extra-args='{"section":"header"}'>
 <h2 class='logo logo-v2'>
-<div data-numslots="1" class="logo-variation logo-variation-header"><div  class="logo-slot pct100 slot_0 slot-type-image align-center"><a class="ve_no_url" href="../index.html" title="Rum River Barn & Vineyard" rel="home"><img  src="../files/2015/05/logo-cropped.jpg" /></a></div></div><div data-numslots="1" class="logo-variation logo-variation-mobile"><div  class="logo-slot pct100 slot_0 slot-type-image align-center"><a class="ve_no_url" href="../index.html" title="Rum River Barn & Vineyard" rel="home"><img  src="../files/2015/05/logo-cropped.jpg" /></a></div></div>
+<div data-numslots="1" class="logo-variation logo-variation-header"><div  class="logo-slot pct100 slot_0 slot-type-image align-center"><a class="ve_no_url" href="../index.html" title="Rum River Barn & Vineyard" rel="home"><img  src="/files/2015/05/logo-cropped.jpg" /></a></div></div><div data-numslots="1" class="logo-variation logo-variation-mobile"><div  class="logo-slot pct100 slot_0 slot-type-image align-center"><a class="ve_no_url" href="../index.html" title="Rum River Barn & Vineyard" rel="home"><img  src="/files/2015/05/logo-cropped.jpg" /></a></div></div>
 </h2></div>
             <div id="access" class="original_access">
                 <div class="menu align-center">
@@ -233,7 +448,7 @@ _gaq.push(['_trackPageview']);
 <div class='item_1 the_list_item  not_hero yes_image no_heads no_desc ' lang='en'>
 <a class='block_link'  target='_self' class='the_item_link' data-title=''></a>
 <div class='the_list_item_image'>
-<img alt='' data-src='' data-lazy-load-img-src="../files/2014/05/6lv2R9KqOr5T8Fpw-9U8rYtPJA1X2DNeIpVVJbT7NtE.jpg' border='0' class='item_image beacon-lazy-load' src="../cms_websites/img/lazy-load-placeholder.png">
+<img alt='' data-src='' data-lazy-load-img-src="/files/2014/05/6lv2R9KqOr5T8Fpw-9U8rYtPJA1X2DNeIpVVJbT7NtE.jpg" border='0' class='item_image beacon-lazy-load' src="/cms_websites/img/lazy-load-placeholder.png">
 </div></div></div>
 <!-- end of photo_grid new RENDER --><!-- End block --></div></div><div class='content thereIsFeatured section_content content_bg wrp_color_bg'><div class='section w988'><!-- Start block beacon_photo_grid -->
 <!-- photo_grid new RENDER -->
@@ -241,17 +456,17 @@ _gaq.push(['_trackPageview']);
 <div class='item_1 the_list_item  not_hero yes_image no_heads no_desc ' lang='en'>
 <a class='block_link'  target='_self' class='the_item_link' data-title=''></a>
 <div class='the_list_item_image'>
-<img alt='' data-src='' data-lazy-load-img-src="../files/2014/05/dsRoPx0RtUzzhx0F9RWKe4XBoz04Xm1E2e0aj2j3zPs.jpg' border='0' class='item_image beacon-lazy-load' src="../cms_websites/img/lazy-load-placeholder.png">
+<img alt='' data-src='' data-lazy-load-img-src="/files/2014/05/dsRoPx0RtUzzhx0F9RWKe4XBoz04Xm1E2e0aj2j3zPs.jpg" border='0' class='item_image beacon-lazy-load' src="/cms_websites/img/lazy-load-placeholder.png">
 </div></div>
 <div class='item_2 the_list_item  not_hero yes_image no_heads no_desc ' lang='en'>
 <a class='block_link'  target='_self' class='the_item_link' data-title=''></a>
 <div class='the_list_item_image'>
-<img alt='' data-src='' data-lazy-load-img-src="../files/2014/05/sVXDyxfSxt68XOQy6PYCGz3GaAE5a7AD5dmaR1yefLA.jpg' border='0' class='item_image beacon-lazy-load' src="../cms_websites/img/lazy-load-placeholder.png">
+<img alt='' data-src='' data-lazy-load-img-src="/files/2014/05/sVXDyxfSxt68XOQy6PYCGz3GaAE5a7AD5dmaR1yefLA.jpg" border='0' class='item_image beacon-lazy-load' src="/cms_websites/img/lazy-load-placeholder.png">
 </div></div>
 <div class='item_3 the_list_item  not_hero yes_image no_heads no_desc ' lang='en'>
 <a class='block_link'  target='_self' class='the_item_link' data-title=''></a>
 <div class='the_list_item_image'>
-<img alt='' data-src='' data-lazy-load-img-src="../files/2014/05/xcJybCFRH0Sqx7ZShp5YHedTmaZidm90Gk28Xk5Uk7Y.jpg' border='0' class='item_image beacon-lazy-load' src="../cms_websites/img/lazy-load-placeholder.png">
+<img alt='' data-src='' data-lazy-load-img-src="/files/2014/05/xcJybCFRH0Sqx7ZShp5YHedTmaZidm90Gk28Xk5Uk7Y.jpg" border='0' class='item_image beacon-lazy-load' src="/cms_websites/img/lazy-load-placeholder.png">
 </div></div></div>
 <!-- end of photo_grid new RENDER --><!-- End block --><!-- Start block beacon_article -->
 <!-- article new RENDER -->
@@ -259,31 +474,31 @@ _gaq.push(['_trackPageview']);
 
 <div class='item_1 the_list_item  not_hero yes_image no_heads no_desc' lang='en'>
                     <div class='the_list_wrap'>
-<div class='the_list_item_image'><a  data-title=""><img alt=""  data-src='' data-lazy-load-img-src="../files/2014/05/2a3TKYGNFdtpc4qhWt8JeMtC68n7ocFQQbEnMfPh9mI.jpg' border='0' class='item_image beacon-lazy-load' src="../cms_websites/img/lazy-load-placeholder.png"></a></div>
+<div class='the_list_item_image'><a  data-title=""><img alt=""  data-src='' data-lazy-load-img-src="/files/2014/05/2a3TKYGNFdtpc4qhWt8JeMtC68n7ocFQQbEnMfPh9mI.jpg" border='0' class='item_image beacon-lazy-load' src="/cms_websites/img/lazy-load-placeholder.png"></a></div>
 <div class='the_list_item_heads'></div>
 
 </div></div>
 <div class='item_2 the_list_item  not_hero yes_image no_heads no_desc' lang='en'>
                     <div class='the_list_wrap'>
-<div class='the_list_item_image'><a  data-title=""><img alt=""  data-src='' data-lazy-load-img-src="../files/2014/05/b-tvd-vR-OBGsGbkkQvkToMD0txTBtyL813N8UOnZgc.jpg' border='0' class='item_image beacon-lazy-load' src="../cms_websites/img/lazy-load-placeholder.png"></a></div>
+<div class='the_list_item_image'><a  data-title=""><img alt=""  data-src='' data-lazy-load-img-src="/files/2014/05/b-tvd-vR-OBGsGbkkQvkToMD0txTBtyL813N8UOnZgc.jpg" border='0' class='item_image beacon-lazy-load' src="/cms_websites/img/lazy-load-placeholder.png"></a></div>
 <div class='the_list_item_heads'></div>
 
 </div></div>
 <div class='item_3 the_list_item  not_hero yes_image no_heads no_desc' lang='en'>
                     <div class='the_list_wrap'>
-<div class='the_list_item_image'><a  data-title=""><img alt=""  data-src='' data-lazy-load-img-src="../files/2014/05/CFeixI2Hh_2Pnk-cLyoQ34_itCy5-r0QYnT1fkP2Y70.jpg' border='0' class='item_image beacon-lazy-load' src="../cms_websites/img/lazy-load-placeholder.png"></a></div>
+<div class='the_list_item_image'><a  data-title=""><img alt=""  data-src='' data-lazy-load-img-src="/files/2014/05/CFeixI2Hh_2Pnk-cLyoQ34_itCy5-r0QYnT1fkP2Y70.jpg" border='0' class='item_image beacon-lazy-load' src="/cms_websites/img/lazy-load-placeholder.png"></a></div>
 <div class='the_list_item_heads'></div>
 
 </div></div>
 <div class='item_4 the_list_item  not_hero yes_image no_heads no_desc' lang='en'>
                     <div class='the_list_wrap'>
-<div class='the_list_item_image'><a  data-title=""><img alt=""  data-src='' data-lazy-load-img-src="../files/2014/05/TDhKqaphA29jSJ8rUxZjcGXzCwqvN3d3AfDA7cyoxtg.jpg' border='0' class='item_image beacon-lazy-load' src="../cms_websites/img/lazy-load-placeholder.png"></a></div>
+<div class='the_list_item_image'><a  data-title=""><img alt=""  data-src='' data-lazy-load-img-src="/files/2014/05/TDhKqaphA29jSJ8rUxZjcGXzCwqvN3d3AfDA7cyoxtg.jpg" border='0' class='item_image beacon-lazy-load' src="/cms_websites/img/lazy-load-placeholder.png"></a></div>
 <div class='the_list_item_heads'></div>
 
 </div></div>
 <div class='item_5 the_list_item  not_hero yes_image no_heads no_desc' lang='en'>
                     <div class='the_list_wrap'>
-<div class='the_list_item_image'><a  data-title=""><img alt=""  data-src='' data-lazy-load-img-src="../files/2014/05/uyyKXswbLBcjBplMknGvLzQUX_VT73CkkS69V3RD3ko.jpg' border='0' class='item_image beacon-lazy-load' src="../cms_websites/img/lazy-load-placeholder.png"></a></div>
+<div class='the_list_item_image'><a  data-title=""><img alt=""  data-src='' data-lazy-load-img-src="/files/2014/05/uyyKXswbLBcjBplMknGvLzQUX_VT73CkkS69V3RD3ko.jpg" border='0' class='item_image beacon-lazy-load' src="/cms_websites/img/lazy-load-placeholder.png"></a></div>
 <div class='the_list_item_heads'></div>
 
 </div></div>
@@ -305,7 +520,7 @@ _gaq.push(['_trackPageview']);
         
 <div id='_the_logo' class='_is_plugin footer-logo' slug='_the_logo' data-extra-args='{"section":"footer"}'>
 <h2 class='logo logo-v2'>
-<div data-numslots="1" class="logo-variation logo-variation-footer"><div  class="logo-slot pct100 slot_0 slot-type-image align-center"><a class="ve_no_url" href="../index.html" title="Rum River Barn & Vineyard" rel="home"><img  src="../files/2015/05/logo-cropped.jpg" /></a></div></div>
+<div data-numslots="1" class="logo-variation logo-variation-footer"><div  class="logo-slot pct100 slot_0 slot-type-image align-center"><a class="ve_no_url" href="../index.html" title="Rum River Barn & Vineyard" rel="home"><img  src="/files/2015/05/logo-cropped.jpg" /></a></div></div>
 </h2></div>    </div><!-- closed class="footer_brand" -->
     <div class="footer">
         
@@ -331,12 +546,12 @@ _gaq.push(['_trackPageview']);
                 <div id="_the_embeded_below_mods_wrapper"></div>
                 <div id="_the_embeded_below_mods_btn" class="_is_embeded"></div>
             </div>
-<script type="text/javascript" src="../cms_websites/js/dist/shared/underscore.min.js?ver=1.8.3"></script>
-<script type="text/javascript" src="../cms_websites/js/dist/beacon-easton/theme-plugins-min.js"></script>
-<script type="text/javascript" src="../cms_websites/js/dist/beacon-theme_easton/theme-min.js"></script>
-<script type="text/javascript" src="../cms_websites/js/dist/shared/internal/beacon-lazy-load.min.js"></script>
-<script type="text/javascript" src="../cms_websites/js/dist/beacon-easton/theme-menu-horizontal-v1.min.js"></script>
+<script type="text/javascript" src="/cms_websites/js/dist/shared/underscore.min.js?ver=1.8.3"></script>
+<script type="text/javascript" src="/cms_websites/js/dist/beacon-easton/theme-plugins-min.js"></script>
+<script type="text/javascript" src="/cms_websites/js/dist/beacon-theme_easton/theme-min.js"></script>
+<script type="text/javascript" src="/cms_websites/js/dist/shared/internal/beacon-lazy-load.min.js"></script>
+<script type="text/javascript" src="/cms_websites/js/dist/beacon-easton/theme-menu-horizontal-v1.min.js"></script>
 
-<script type="text/javascript" src="../cms_websites/tools/GAEventTracking/js/scripts.min.js"></script><script> jQuery(document).ready(function(){ jQuery("#the_header .header_share_wrap").before("<div id='header-cta'><a href='../contact-us/index.html'>Vacation rentals in Hillman, Milaca and Isle</a></div>");});</script>
+<script type="text/javascript" src="/cms_websites/tools/GAEventTracking/js/scripts.min.js"></script><script> jQuery(document).ready(function(){ jQuery("#the_header .header_share_wrap").before("<div id='header-cta'><a href='../contact-us/index.html'>Vacation rentals in Hillman, Milaca and Isle</a></div>");});</script>
 
 </body></html>

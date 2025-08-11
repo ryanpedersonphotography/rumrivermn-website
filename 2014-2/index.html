@@ -234,6 +234,221 @@ _gaq.push(['_trackPageview']);
             }, false);
         </script>
 
+<style>
+/* Gallery grid fix */
+.list_block { 
+    overflow: hidden;
+    clear: both;
+}
+
+/* Masonry layout for galleries */
+.list_block.type_article {
+    column-count: 3;
+    column-gap: 15px;
+    padding: 0;
+    margin: 0 auto;
+    max-width: 100%;
+}
+
+/* Gallery items styling - masonry */
+.list_block.type_article .the_list_item {
+    display: inline-block !important;
+    width: 100% !important;
+    margin: 0 0 15px 0 !important;
+    break-inside: avoid;
+    page-break-inside: avoid;
+    overflow: hidden;
+}
+
+/* Reset flex overrides */
+.list_block.type_article.column_amt_3 .the_list_item {
+    flex: none !important;
+    max-width: 100% !important;
+}
+
+/* Hero image (full width) */
+.list_block.type_photo_grid.column_amt_1 .the_list_item {
+    width: 100%;
+    margin: 0;
+}
+
+/* Image container with aspect ratio */
+.list_block .the_list_item_image {
+    position: relative;
+    overflow: hidden;
+    background: #f5f5f5;
+}
+
+/* Hero image aspect ratio (16:9) */
+.list_block.type_photo_grid.img-widescreen_16_9 .the_list_item_image {
+    padding-bottom: 56.25%;
+    height: 0;
+}
+
+/* Masonry layout - let images be natural height */
+.list_block.type_article .the_list_item_image {
+    padding-bottom: 0 !important;
+    height: auto !important;
+}
+
+/* Images in masonry should maintain aspect ratio */
+.list_block.type_article .the_list_item_image img {
+    position: relative !important;
+    width: 100% !important;
+    height: auto !important;
+    display: block !important;
+}
+
+/* Hero image keeps absolute positioning */
+.list_block.type_photo_grid .the_list_item_image img {
+    position: absolute !important;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Lightbox links for masonry */
+.list_block.type_article .the_list_item_image a {
+    position: relative !important;
+    display: block !important;
+    width: 100% !important;
+    height: auto !important;
+    cursor: pointer;
+}
+
+/* Gallery wrapper styling */
+.list_block.type_article .the_list_wrap {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Ensure proper box-sizing */
+.list_block *, .list_block *:before, .list_block *:after {
+    box-sizing: border-box;
+}
+
+/* Flexbox handles spacing, no need for letter-spacing hacks */
+
+/* Responsive masonry columns */
+@media (max-width: 768px) {
+    .list_block.type_article {
+        column-count: 2;
+    }
+}
+
+@media (max-width: 480px) {
+    .list_block.type_article {
+        column-count: 1;
+    }
+}
+
+/* Simple lightbox styles */
+.lightbox-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.9);
+    z-index: 9999;
+    cursor: pointer;
+}
+
+.lightbox-overlay img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 90%;
+    max-height: 90%;
+    box-shadow: 0 0 50px rgba(0,0,0,0.5);
+}
+
+.lightbox-overlay.active {
+    display: block;
+}
+
+/* Fix lazy load placeholder opacity */
+.list_block img.beacon-lazy-load[src*="lazy-load-placeholder"] {
+    opacity: 0.1;
+}
+
+/* Clear floats */
+.list_block:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+</style>
+<script>
+// Immediately load all lazy images and setup lightbox
+document.addEventListener('DOMContentLoaded', function() {
+    // Find all lazy load images
+    var lazyImages = document.querySelectorAll('img.beacon-lazy-load');
+    
+    lazyImages.forEach(function(img) {
+        // Get the actual image source
+        var actualSrc = img.getAttribute('data-lazy-load-img-src');
+        if (actualSrc && actualSrc !== '') {
+            // Set the actual source
+            img.src = actualSrc;
+            // Remove lazy load class
+            img.classList.remove('beacon-lazy-load');
+            // Clear data-src if it exists
+            if (img.hasAttribute('data-src')) {
+                img.removeAttribute('data-src');
+            }
+            // Remove the data attribute
+            img.removeAttribute('data-lazy-load-img-src');
+            
+            // Add error handler in case image fails to load
+            img.onerror = function() {
+                console.error('Failed to load image:', actualSrc);
+                // Try without the ../
+                if (actualSrc.startsWith('../')) {
+                    img.src = actualSrc.substring(3);
+                }
+            };
+        }
+    });
+    
+    // Create lightbox overlay
+    var lightbox = document.createElement('div');
+    lightbox.className = 'lightbox-overlay';
+    lightbox.innerHTML = '<img src="" alt="Gallery image">';
+    document.body.appendChild(lightbox);
+    
+    // Add click handlers to gallery images
+    var galleryLinks = document.querySelectorAll('.list_block.type_article .the_list_item_image a');
+    galleryLinks.forEach(function(link) {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            var imgSrc = this.getAttribute('href');
+            if (imgSrc) {
+                lightbox.querySelector('img').src = imgSrc;
+                lightbox.classList.add('active');
+            }
+        });
+    });
+    
+    // Close lightbox on click
+    lightbox.addEventListener('click', function() {
+        this.classList.remove('active');
+    });
+    
+    // Also trigger any existing lazy load mechanism
+    if (typeof jQuery !== 'undefined' && jQuery.fn.trigger) {
+        jQuery(window).trigger('scroll');
+        jQuery(window).trigger('resize');
+    }
+});
+</script>
 </head>
 <body class=" page page-id-2479 page-template-default ve-iframe beacon r1 unknown">
 
