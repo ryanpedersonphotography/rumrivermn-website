@@ -20,7 +20,23 @@ h3.gform_title {
 }
 
 .ginput_container.ayah, span.num1 {
-    color: #fff !important;
+    color: #333 !important;
+}
+
+/* Fix security check (AYAH) visibility */
+.ayah_label,
+.ayah_textbox,
+.ayah_text_field,
+.ayah-wrapper,
+.ayah-wrapper *,
+[class*="ayah"] {
+    color: #333 !important;
+}
+
+/* Fix math problem text specifically */
+.gfield.field_sublabel_below.field_description_below span,
+.gfield_description {
+    color: #333 !important;
 }
 
 #header-cta{
