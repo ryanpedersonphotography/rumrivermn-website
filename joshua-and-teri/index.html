@@ -86,7 +86,8 @@
 .list_block { 
     overflow: hidden;
     clear: both;
-    text-align: center;
+    text-align: left;
+    font-size: 0; /* Remove whitespace between inline-block elements */
 }
 
 /* Gallery items styling */
@@ -95,11 +96,13 @@
     vertical-align: top;
     margin: 0.5%;
     overflow: hidden;
+    font-size: 16px; /* Reset font size */
 }
 
 /* 3 column layout for galleries */
 .list_block.type_article.column_amt_3 .the_list_item {
-    width: 32%;
+    width: calc(33.333% - 1%);
+    margin: 0.5%;
 }
 
 /* Hero image (full width) */
@@ -157,6 +160,21 @@
 .list_block.type_article .the_list_wrap {
     position: relative;
     height: 100%;
+    width: 100%;
+}
+
+/* Ensure proper box-sizing */
+.list_block *, .list_block *:before, .list_block *:after {
+    box-sizing: border-box;
+}
+
+/* Force inline-block display for better cross-browser support */
+.list_block.type_article {
+    letter-spacing: -0.31em; /* Remove whitespace between inline elements */
+}
+
+.list_block.type_article .the_list_item {
+    letter-spacing: normal; /* Reset letter spacing inside items */
 }
 
 /* Responsive adjustments */
