@@ -33,7 +33,8 @@
     <!-- <script type="text/javascript" src="../wp-content/themes/beacon-easton/js/nwmatcher.js"></script> -->
     <!-- <script type="text/javascript" src="../wp-content/themes/beacon-easton/js/modernizr-custom-11917.js"></script> -->
 
-    <!-- Scripts loaded at bottom for better performance -->
+    <!-- Load jQuery and required scripts in head to fix execution order -->
+    <script type="text/javascript" src="../cms_websites/js/dist/shared/external/scripts.min.js"></script>
 
 <!-- External tracking removed - not available locally -->
 <link rel="shortcut icon" sizes="16x16 32x32 64x64" href="../files/2021/03/wedding-rings.png%3Fw=196&amp;h=196&amp;zc=0">
@@ -1107,11 +1108,9 @@ _gaq.push(['_trackPageview']);
                 <div id="_the_embeded_below_mods_wrapper"></div>
                 <div id="_the_embeded_below_mods_btn" class="_is_embeded"></div>
             </div>
-<!-- Load main scripts bundle first (includes jQuery, underscore, etc) -->
-<script type="text/javascript" src="../cms_websites/js/dist/shared/external/scripts.min.js"></script>
+<!-- Additional theme scripts (jQuery already loaded in head) -->
 <script type="text/javascript" src="../cms_websites/js/dist/beacon-easton/theme-plugins-min.js"></script>
 <script type="text/javascript" src="../cms_websites/js/dist/beacon-theme_easton/theme-min.js"></script>
-<!-- Removed beacon-lazy-load.min.js as we have custom image loading -->
 <script type="text/javascript" src="../cms_websites/js/dist/beacon-easton/theme-menu-horizontal-v1.min.js"></script>
 
 <!-- GAEventTracking script not available locally --><script> jQuery(document).ready(function(){ jQuery("#the_header .header_share_wrap").before("<div id='header-cta'><a href='../contact-us/index.html'>Vacation rentals in Hillman, Milaca and Isle</a></div>");});</script>
