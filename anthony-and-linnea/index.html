@@ -439,36 +439,55 @@ _gaq.push(['_trackPageview']);
 }
 </style>
 <script>
-// Immediately load all lazy images and setup lightbox
-document.addEventListener('DOMContentLoaded', function() {
-    // Find all lazy load images
-    var lazyImages = document.querySelectorAll('img.beacon-lazy-load');
+// Force load all images immediately - override any lazy loading
+window.addEventListener('load', function() {
+    console.log('Force loading all gallery images...');
     
-    lazyImages.forEach(function(img) {
-        // Get the actual image source
-        var actualSrc = img.getAttribute('data-lazy-load-img-src');
-        if (actualSrc && actualSrc !== '') {
-            // Set the actual source
-            img.src = actualSrc;
-            // Remove lazy load class
-            img.classList.remove('beacon-lazy-load');
-            // Clear data-src if it exists
-            if (img.hasAttribute('data-src')) {
-                img.removeAttribute('data-src');
+    // Wait a bit for any scripts to initialize
+    setTimeout(function() {
+        // Find ALL images with lazy load attributes
+        var lazyImages = document.querySelectorAll('img[data-lazy-load-img-src], img.beacon-lazy-load');
+        console.log('Found ' + lazyImages.length + ' lazy images to load');
+        
+        lazyImages.forEach(function(img, index) {
+            // Get the actual image source
+            var actualSrc = img.getAttribute('data-lazy-load-img-src');
+            if (actualSrc && actualSrc !== '') {
+                console.log('Loading image ' + (index + 1) + ': ' + actualSrc);
+                
+                // Create a new image element to test loading
+                var testImg = new Image();
+                testImg.onload = function() {
+                    // Image loaded successfully, update the src
+                    img.src = actualSrc;
+                    img.classList.remove('beacon-lazy-load');
+                    img.removeAttribute('data-lazy-load-img-src');
+                    img.removeAttribute('data-src');
+                    console.log('Successfully loaded: ' + actualSrc);
+                };
+                
+                testImg.onerror = function() {
+                    console.error('Failed to load image: ' + actualSrc);
+                    // Try alternative paths
+                    if (actualSrc.startsWith('../')) {
+                        // Try without ../
+                        var altSrc = actualSrc.substring(3);
+                        console.log('Trying alternative path: ' + altSrc);
+                        img.src = altSrc;
+                    } else if (!actualSrc.startsWith('/')) {
+                        // Try with /
+                        var altSrc2 = '/' + actualSrc;
+                        console.log('Trying alternative path: ' + altSrc2);
+                        img.src = altSrc2;
+                    }
+                };
+                
+                // Start loading
+                testImg.src = actualSrc;
             }
-            // Remove the data attribute
-            img.removeAttribute('data-lazy-load-img-src');
-            
-            // Add error handler in case image fails to load
-            img.onerror = function() {
-                console.error('Failed to load image:', actualSrc);
-                // Try without the ../
-                if (actualSrc.startsWith('../')) {
-                    img.src = actualSrc.substring(3);
-                }
-            };
-        }
-    });
+        });
+    }, 500); // Wait 500ms for other scripts
+});
     
     // Create lightbox overlay
     var lightbox = document.createElement('div');
@@ -1173,7 +1192,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <script type="text/javascript" src="../cms_websites/js/dist/shared/external/scripts.min.js"></script>
 <script type="text/javascript" src="../cms_websites/js/dist/beacon-easton/theme-plugins-min.js"></script>
 <script type="text/javascript" src="../cms_websites/js/dist/beacon-theme_easton/theme-min.js"></script>
-<script type="text/javascript" src="../cms_websites/js/dist/shared/internal/beacon-lazy-load.min.js"></script>
+<!-- Removed beacon-lazy-load.min.js as we have custom image loading -->
 <script type="text/javascript" src="../cms_websites/js/dist/beacon-easton/theme-menu-horizontal-v1.min.js"></script>
 
 <!-- GAEventTracking script not available locally --><script> jQuery(document).ready(function(){ jQuery("#the_header .header_share_wrap").before("<div id='header-cta'><a href='../contact-us/index.html'>Vacation rentals in Hillman, Milaca and Isle</a></div>");});</script>
