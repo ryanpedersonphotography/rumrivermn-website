@@ -1,0 +1,316 @@
+/* Basic Theme CSS for Rum River Barn & Vineyard */
+
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    font-family: 'Lato', 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+    font-size: 1.6rem;
+    line-height: 1.6;
+    color: #333;
+    background-color: #fff;
+}
+
+/* Layout */
+#wrapper {
+    width: 100%;
+    margin: 0 auto;
+}
+
+#container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.full_width_content {
+    width: 100%;
+}
+
+/* Header */
+#the_header {
+    background-color: #fff;
+    padding: 2rem 0;
+    border-bottom: 1px solid #eee;
+}
+
+.header {
+    padding: 1rem 2rem;
+}
+
+.logo-variation img {
+    max-width: 300px;
+    height: auto;
+}
+
+/* Navigation */
+#_the_navigation {
+    background-color: #fff;
+    padding: 1rem 0;
+}
+
+.menu {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.menu li {
+    margin: 0 1.5rem;
+}
+
+.menu a {
+    text-decoration: none;
+    color: #333;
+    padding: 0.5rem 1rem;
+    display: block;
+    transition: all 0.3s ease;
+}
+
+.menu a:hover {
+    background-color: #8a7e8a;
+    color: #fff;
+}
+
+/* Content */
+.content {
+    padding: 3rem 0;
+}
+
+.page_title {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #b3cc7a;
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+}
+
+h1 { font-size: 3.6rem; }
+h2 { font-size: 3rem; }
+h3 { font-size: 2.4rem; }
+h4 { font-size: 2rem; }
+h5 { font-size: 1.8rem; }
+h6 { font-size: 1.6rem; }
+
+p {
+    margin-bottom: 1.5rem;
+}
+
+a {
+    color: #8a7e8a;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Lists */
+.the_list {
+    margin: 2rem 0;
+}
+
+.the_list_item {
+    margin-bottom: 2rem;
+    padding: 2rem;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+}
+
+.the_list_item_headline {
+    font-size: 2.4rem;
+    margin-bottom: 1rem;
+}
+
+.the_list_item_subheadline {
+    font-size: 1.8rem;
+    color: #666;
+    margin-bottom: 1rem;
+}
+
+.the_list_item_desc {
+    line-height: 1.6;
+}
+
+.the_list_item_image img {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+}
+
+.the_list_item_action {
+    margin-top: 1.5rem;
+}
+
+.the_list_item_action a {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background-color: #b4cc7a;
+    color: #fff;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.the_list_item_action a:hover {
+    background-color: #8a7e8a;
+    text-decoration: none;
+}
+
+/* Gallery */
+.type_gallery .the_list_item {
+    position: relative;
+    overflow: hidden;
+}
+
+.caption {
+    padding: 1.5rem;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #fff;
+}
+
+/* Footer */
+#the_footer {
+    background-color: #212121;
+    color: #fff;
+    padding: 3rem 0;
+    margin-top: 5rem;
+}
+
+.footer {
+    padding: 2rem;
+    text-align: center;
+}
+
+.footer a {
+    color: #fff;
+}
+
+.footer a:hover {
+    color: #b4cc7a;
+}
+
+/* Forms */
+.gform_wrapper {
+    margin: 2rem 0;
+}
+
+.gfield {
+    margin-bottom: 1.5rem;
+}
+
+.gfield_label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+textarea,
+select {
+    width: 100%;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1.6rem;
+}
+
+input[type="submit"],
+button {
+    padding: 1rem 2rem;
+    background-color: #b4cc7a;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1.6rem;
+    transition: background-color 0.3s ease;
+}
+
+input[type="submit"]:hover,
+button:hover {
+    background-color: #8a7e8a;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    #container {
+        padding: 1rem;
+    }
+    
+    .menu {
+        flex-direction: column;
+    }
+    
+    .menu li {
+        margin: 0.5rem 0;
+    }
+    
+    h1 { font-size: 2.8rem; }
+    h2 { font-size: 2.4rem; }
+    h3 { font-size: 2rem; }
+}
+
+/* Utility Classes */
+.text-center { text-align: center; }
+.mt-2 { margin-top: 2rem; }
+.mb-2 { margin-bottom: 2rem; }
+.p-2 { padding: 2rem; }
+
+/* Hero Section */
+.hero {
+    background-color: #8a7e8a;
+    color: #fff;
+    padding: 4rem 2rem;
+    text-align: center;
+}
+
+.hero h1,
+.hero h2,
+.hero h3 {
+    color: #fff;
+}
+
+/* Modal */
+.modal_wrap {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+}
+
+.modal_content {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 2rem;
+    width: 80%;
+    max-width: 600px;
+    border-radius: 8px;
+}
+
+/* Image Lazy Loading */
+img[data-src] {
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+img.loaded {
+    opacity: 1;
+}
