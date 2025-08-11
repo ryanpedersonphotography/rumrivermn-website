@@ -486,38 +486,40 @@ window.addEventListener('load', function() {
                 testImg.src = actualSrc;
             }
         });
+        
+        // After loading images, setup lightbox
+        setTimeout(function() {
+            // Create lightbox overlay
+            var lightbox = document.createElement('div');
+            lightbox.className = 'lightbox-overlay';
+            lightbox.innerHTML = '<img src="" alt="Gallery image">';
+            document.body.appendChild(lightbox);
+            
+            // Add click handlers to gallery images
+            var galleryLinks = document.querySelectorAll('.list_block.type_article .the_list_item_image a');
+            galleryLinks.forEach(function(link) {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    var imgSrc = this.getAttribute('href');
+                    if (imgSrc) {
+                        lightbox.querySelector('img').src = imgSrc;
+                        lightbox.classList.add('active');
+                    }
+                });
+            });
+            
+            // Close lightbox on click
+            lightbox.addEventListener('click', function() {
+                this.classList.remove('active');
+            });
+        }, 1000); // Wait for images to load
+        
+        // Also trigger any existing lazy load mechanism
+        if (typeof jQuery !== 'undefined' && jQuery.fn.trigger) {
+            jQuery(window).trigger('scroll');
+            jQuery(window).trigger('resize');
+        }
     }, 500); // Wait 500ms for other scripts
-});
-    
-    // Create lightbox overlay
-    var lightbox = document.createElement('div');
-    lightbox.className = 'lightbox-overlay';
-    lightbox.innerHTML = '<img src="" alt="Gallery image">';
-    document.body.appendChild(lightbox);
-    
-    // Add click handlers to gallery images
-    var galleryLinks = document.querySelectorAll('.list_block.type_article .the_list_item_image a');
-    galleryLinks.forEach(function(link) {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            var imgSrc = this.getAttribute('href');
-            if (imgSrc) {
-                lightbox.querySelector('img').src = imgSrc;
-                lightbox.classList.add('active');
-            }
-        });
-    });
-    
-    // Close lightbox on click
-    lightbox.addEventListener('click', function() {
-        this.classList.remove('active');
-    });
-    
-    // Also trigger any existing lazy load mechanism
-    if (typeof jQuery !== 'undefined' && jQuery.fn.trigger) {
-        jQuery(window).trigger('scroll');
-        jQuery(window).trigger('resize');
-    }
 });
 </script>
 </head>
