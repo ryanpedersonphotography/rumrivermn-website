@@ -73,11 +73,26 @@ netlify dev
 
 ### Gallery Images
 - **Issue**: Images previously used lazy loading which broke when original WordPress site went offline
-- **Fix Applied**: Commit `f11e83f` removed all lazy loading, images now load directly
+- **Partial Fix Applied**: 
+  - Fixed jQuery loading order in all gallery subpages (moved to head section)
+  - Gallery pages now display images correctly
+  - Main photo-gallery.html still has lazy loading issues (thumbnails may not display)
 
 ### Form Submissions
 - Contact forms use Netlify Forms
 - Form submissions are handled by Netlify's built-in form handling
+
+## Recent Fixes (November 11, 2024)
+
+### Completed
+- ✅ Fixed JavaScript execution order in 14 gallery pages
+- ✅ Removed `target="_blank"` from photo gallery navigation
+- ✅ Synced local repository with GitHub
+- ✅ Verified deployment pipeline to Netlify
+
+### Pending Issues
+- Photo gallery page thumbnails not loading (lazy loading still active)
+- Some root-level HTML pages may have path issues
 
 ## Configuration
 
